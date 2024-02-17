@@ -72,13 +72,12 @@ class NIH(BaseComponent):
 
         # 데이터셋이 가진 변환이 None이 아닌 경우, 이미지에 해당 반환을 적용함
         # 입력받은 이미지를 딕셔너리 형태로 반환되는 형식으로 이미지에 변환을 적용하고 변환된 이미지를 추출
-
         # convert image to pytorch tensor(이미지를 파이토치 형식으로 변환)
         image = image.transpose(2, 0, 1) # 이미지의 차원을 변환하는 연산(채널(C), 높이(H), 너비(W))
         image = image.astype('float32') / 255.0 # 이미지를 0과 1 사이로 정규화
         image = torch.Tensor(image) # pytorch 텐서로 변환
         output = {'image': image, 'label': label,
-                  'dataset': self.dataset, 'path': data['path']} # 이미지, 레이블, 데이터셋의 정보, 이미지의 경로를 포함한 반환할 출력 딕셔너리를 생성
+                  'path': data['path']} # 이미지, 레이블, 데이터셋의 정보, 이미지의 경로를 포함한 반환할 출력 딕셔너리를 생성
         output.update({key: data[key] for key in self.additional_keys}) # 추가적인 키들과 해당 값들을 출력 딕셔너리에 추가
         return output # 완성된 출력 딕셔너리를 반환
     
